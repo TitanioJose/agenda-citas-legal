@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cuenta confirmada · Agenda de Citas</title>
+<style>
+  :root { --ink:#1d2a28; --muted:#5b6b68; --bg:#ffffff; --accent:#0E6B5E; --bad:#b3261e; }
+  @media (prefers-color-scheme: dark) { :root { --ink:#e8efed; --muted:#9fb0ac; --bg:#121816; --accent:#4fc2ae; --bad:#ff8a80; } }
+  body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width:520px; margin:0 auto; padding:72px 16px; text-align:center; }
+  .icon { font-size:56px; }
+  h1 { color:var(--accent); font-size:1.7rem; margin:8px 0; }
+  p { color:var(--muted); }
+  .error h1 { color:var(--bad); }
+  a { color:var(--accent); }
+</style>
+</head>
+<body>
+<main id="ok">
+  <div class="icon">✅</div>
+  <h1>¡Tu cuenta está confirmada!</h1>
+  <p>Ya puedes volver a la app <strong>Agenda de Citas</strong> e iniciar sesión con tu correo y contraseña.</p>
+  <p><a href="privacidad.html">Aviso de Privacidad</a></p>
+</main>
+<main id="error" class="error" hidden>
+  <div class="icon">⚠️</div>
+  <h1>El enlace ya no es válido</h1>
+  <p>Puede que ya lo hayas usado o que haya vencido. Abre la app e intenta iniciar sesión; si te pide confirmar, vuelve a crear la cuenta para recibir un enlace nuevo.</p>
+</main>
+<script>
+  // Supabase manda los errores en el fragmento (#error=...) o en la consulta (?error=...)
+  if (/(^|[#?&])error(_code)?=/.test(location.hash + location.search)) {
+    document.getElementById('ok').hidden = true;
+    document.getElementById('error').hidden = false;
+  }
+  // No dejar la sesión en la dirección
+  if (location.hash) history.replaceState(null, '', location.pathname);
+</script>
+</body>
+</html>
